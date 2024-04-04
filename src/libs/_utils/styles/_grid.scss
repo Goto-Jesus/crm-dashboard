@@ -1,0 +1,142 @@
+@mixin gridSetting {
+  display: grid;
+  grid-template-columns: 18% 26% 6% 26% 11% 13%;
+
+  @include onDesktop {
+    grid-template-columns: 50% 5% 45%;
+  }
+
+  @include onLabtop {
+    grid-template-columns: 50% 50%;
+  }
+}
+
+@mixin generateGridColumns($columns) {
+  @for $start from 1 through $columns {
+    @for $end from $start through $columns {
+      &-#{$start}-#{$end} { grid-column: #{$start} / #{$end + 1} }
+    }
+  }
+  &-a { grid-column: auto / auto }
+}
+
+@mixin generateGridRows($rows) {
+  @for $start from 1 through $rows {
+    @for $end from $start through $rows {
+      &-#{$start}-#{$end} { grid-row: #{$start} / #{$end + 1} }
+    }
+  }
+  &-a { grid-row: auto / auto }
+}
+
+._grid {
+  @include gridSetting;
+
+  &-col {
+    &--desk {
+      @include generateGridColumns(6);
+    }
+
+    &--lab {
+      @include onDesktop {
+        @include generateGridColumns(3);
+      }
+    }
+    
+    &--tab {
+      @include onLabtop {
+        @include generateGridColumns(2);
+      }
+    }
+    
+    &--phone {
+      @include onPhone {
+        @include generateGridColumns(2);
+      }
+    }
+  }
+ 
+  $-rows: 5;
+
+  &-row {
+    &--desk {
+      @include generateGridRows($-rows);
+    }
+  
+    &--lab {
+      @include onDesktop {
+        @include generateGridRows($-rows);
+      }
+    }
+    
+    &--tab {
+      @include onLabtop {
+        @include generateGridRows($-rows);
+      }
+    }
+    
+    &--phone {
+      @include onPhone {
+        @include generateGridRows($-rows);
+      }
+    }
+  }
+}
+
+@mixin generateOrders() {
+  @for $index from 0 through 10 {
+    &-#{$index} { order: $index }
+  }
+}
+
+._order {
+  &-desk  { @include generateOrders }
+  &-lab   { @include onDesktop { @include generateOrders } }
+  &-tab   { @include onLabtop { @include generateOrders } }
+  &-phone { @include onPhone { @include generateOrders } }
+}
+
+@mixin place-self-symbol() {
+  &-↙, &--end-left     { place-self: end left }
+  &-↓, &--end-center   { place-self: end center }
+  &-↘, &--end-right    { place-self: end right }
+  &-↖, &--start-left   { place-self: start left }
+  &-↑, &--start-center { place-self: start center }
+  &-↗, &--start-right  { place-self: start right }
+  &-←, &--center-left  { place-self: center left }
+  &-→, &--center-right { place-self: center right }
+  &-⭱, &--start-auto    { place-self: start auto }
+  &-↕, &--center-auto   { place-self: center auto }
+  &-⭳, &--end-auto      { place-self: end auto }
+  &-⭰, &--auto-left    { place-self: auto left }
+  &-⭤, &--auto-center   { place-self: auto center }
+  &-⭲, &--auto-right   { place-self: auto right }
+  &-s, &--stretch  { place-self: stretch }
+  &-a, &--auto     { place-self: auto }
+  &-c, &--center   { place-self: center }
+  &-n, &--normal   { place-self: normal }
+}
+
+._place {
+  &-desk  { @include place-self-symbol }
+  &-lab   { @include onDesktop { @include place-self-symbol } }
+  &-tab   { @include onLabtop { @include place-self-symbol } }
+  &-phone { @include onPhone { @include place-self-symbol } }
+}
+
+/*
+    ⭱
+    ⭤
+    ⭳
+
+ ⭰  ↕  ⭲
+
+  ↖ ↑ ↗
+  ← x →
+  ↙ ↓ ↘
+
+  s - stretch 
+  a - auto 
+  n - normal
+  c - center
+*/

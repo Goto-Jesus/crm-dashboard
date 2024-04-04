@@ -1,0 +1,36 @@
+-
+  var _list = [{
+      label: 'Dashboard',
+      icon: './images/icons/key-square.svg',
+    },{
+      label: 'Product',
+      icon: './images/icons/3d-square.svg',
+    },{
+      label: 'Customers',
+      icon: './images/icons/user-square.svg',
+    },{
+      label: 'Income',
+      icon: './images/icons/wallet-money.svg',
+    },{
+      label: 'Promote',
+      icon: './images/icons/discount-shape.svg',
+    },{
+      label: 'Help',
+      icon: './images/icons/message-question.svg',
+  }];
+
+mixin navigation(list=_list)
+  nav.navigation(
+    x-data="{ currentItem: 'Customers' }"
+  )
+    ul.navigation__list
+      each item in list
+        - const { icon, label } = item;
+        li.navigation__item(
+          @click=`currentItem = '${label}'`
+          :class=`{'navigation__item--selected': currentItem === '${label}'}`
+        )
+          div.navigation__item__container
+            img.navigation__item__icon(src=icon, alt="icon")
+            span.navigation__item__label= label
+          img.navigation__item__decor(src="./images/icons/chevron-right.svg", alt="chevron-right")

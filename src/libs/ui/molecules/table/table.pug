@@ -1,0 +1,127 @@
+-
+  var data = {
+    "sortBy": "",
+    "sortType": 0,
+    "customers": [
+      {
+        "customerName": "Jane Cooper",
+        "company": "Microsoft",
+        "phoneNumber": "(225) 555-0118",
+        "email": "jane@microsoft.com",
+        "country": "United States",
+        "status": "Active"
+      },
+      {
+        "customerName": "Floyd Miles",
+        "company": "Yahoo",
+        "phoneNumber": "(205) 555-0100",
+        "email": "floyd@yahoo.com",
+        "country": "Kiribati",
+        "status": "Inactive"
+      },
+      {
+        "customerName": "Ronald Richards",
+        "company": "Adobe",
+        "phoneNumber": "(302) 555-0107",
+        "email": "ronald@adobe.com",
+        "country": "Israel",
+        "status": "Inactive"
+      },
+      {
+        "customerName": "Marvin McKinney",
+        "company": "Tesla",
+        "phoneNumber": "(252) 555-0126",
+        "email": "marvin@tesla.com",
+        "country": "Iran",
+        "status": "Active"
+      },
+      {
+        "customerName": "Kathryn Murphy",
+        "company": "Microsoft",
+        "phoneNumber": "(406) 555-0120",
+        "email": "kathrym@microsoft.com",
+        "country": "Curaçao",
+        "status": "Active"
+      },
+      {
+        "customerName": "Jacob Jones",
+        "company": "Yahoo",
+        "phoneNumber": "(208) 555-0112",
+        "email": "jacob@yahoo.com",
+        "country": "Brazil",
+        "status": "Active"
+      },
+      {
+        "customerName": "Kristin Watson",
+        "company": "Facebook",
+        "phoneNumber": "(704) 555-0127",
+        "email": "kristin@facebook.com",
+        "country": "Åland Islands",
+        "status": "Inactive"
+      }
+    ],
+    filterList: function(query) {
+      return this.customers.filter(c => (
+        Object.values(c).some(value => value.toLowerCase().includes(query.toLowerCase()))
+      ));
+    },
+    sortList: function(key, customers) {
+      if (key === "") {
+          return customers;
+      }
+
+      return [...customers].sort((a, b) => {
+        if (this.sortType === 0) {
+          return 0;
+        }
+
+        if (this.sortType === 1) {
+          return a[key].localeCompare(b[key]);
+        }
+
+        return b[key].localeCompare(a[key]);
+      });
+    },
+    handleSortChange: function(key) {
+      this.sortBy = key;
+
+      if (this.sortType >= 2) {
+        this.sortType = 0;
+        return;
+      }
+
+      this.sortType++;
+    },
+  }
+
+mixin table(props=data)
+  table.table(x-data=to(props))
+    thead.table__header
+      tr.table__header__list
+        th.table__header__padding
+
+        each key in Object.keys(props.customers[0])
+          -
+            var formattedKey = key.replace(/([A-Z])/g, ' $1');
+            var lable = formattedKey.charAt(0).toUpperCase() + formattedKey.slice(1);
+          th.table__header__item(@click=`handleSortChange('${key}')`)
+            .table__header__container(:class='{'+
+              `'table__header__container--desc': sortType === 1 && sortBy === '${key}',`+
+              `'table__header__container--asc': sortType === 2 && sortBy === '${key}',`+
+            '}')= lable
+              img(src="./images/icons/chevron-right.svg", alt="arrow")
+
+        th.table__header__padding
+
+    tbody.table__body
+      template(x-for="(customer, index) in sortList(sortBy,filterList(search.trim()))" :key="index")
+        tr.table__body__list
+          td
+          td.table__body__item(x-text="customer.customerName")
+          td.table__body__item(x-text="customer.company")
+          td.table__body__item(x-text="customer.phoneNumber")
+          td.table__body__item(x-text="customer.email")
+          td.table__body__item(x-text="customer.country")
+          td.table__body__item
+            .status(:class="customer.status === 'Active' ? 'status--active' : 'status--inactive'" x-text="customer.status")
+          td

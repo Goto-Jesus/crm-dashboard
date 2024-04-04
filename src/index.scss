@@ -1,0 +1,47 @@
+@import "libs/imports";
+
+* {
+  box-sizing: border-box;
+}
+
+hr {
+  border-color: #eee;
+}
+
+::selection {
+  background-color: var(--active-alpha);
+  color: var(--white);
+}
+
+.page {
+  scroll-behavior: smooth;
+
+  color: var(--text);
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+
+  &__body {
+    position: relative;
+    margin: 0 auto;
+
+    background-color: var(--bg);
+    transition:
+      color var(--transition-time),
+      background-color var(--transition-time);
+  }
+
+  &__wrapper {}
+  &__header {}
+
+  &__main {
+    display: flex;
+    
+    @include onTablet {
+      position: relative;
+      flex-direction: column;
+    }
+  }
+
+  &__footer {}
+}

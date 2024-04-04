@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html class="page" lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM Dashboard</title>
+    <link rel="shortcut icon" href="./images/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="tailwind.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body class="page__body">
+    <div class="page__wrapper">
+      <header class="page__header"></header>
+      <main class="page__main">
+        <div class="side-menu" x-data="{isShow: true}" :class="{'side-menu--close': !isShow}">
+          <div class="side-menu__header">
+            <div class="logo"><img class="logo__image" src="./images/icons/logo.svg" alt="logo"/>
+              <div class="logo__title">Dashboard</div>
+              <div class="logo__version">v.01</div>
+            </div>
+          </div>
+          <div class="side-menu__container">
+            <nav class="navigation" x-data="{ currentItem: 'Customers' }">
+              <ul class="navigation__list">
+                <li class="navigation__item" @click="currentItem = 'Dashboard'" :class="{'navigation__item--selected': currentItem === 'Dashboard'}">
+                  <div class="navigation__item__container"><img class="navigation__item__icon" src="./images/icons/key-square.svg" alt="icon"/><span class="navigation__item__label">Dashboard</span></div><img class="navigation__item__decor" src="./images/icons/chevron-right.svg" alt="chevron-right"/>
+                </li>
+                <li class="navigation__item" @click="currentItem = 'Product'" :class="{'navigation__item--selected': currentItem === 'Product'}">
+                  <div class="navigation__item__container"><img class="navigation__item__icon" src="./images/icons/3d-square.svg" alt="icon"/><span class="navigation__item__label">Product</span></div><img class="navigation__item__decor" src="./images/icons/chevron-right.svg" alt="chevron-right"/>
+                </li>
+                <li class="navigation__item" @click="currentItem = 'Customers'" :class="{'navigation__item--selected': currentItem === 'Customers'}">
+                  <div class="navigation__item__container"><img class="navigation__item__icon" src="./images/icons/user-square.svg" alt="icon"/><span class="navigation__item__label">Customers</span></div><img class="navigation__item__decor" src="./images/icons/chevron-right.svg" alt="chevron-right"/>
+                </li>
+                <li class="navigation__item" @click="currentItem = 'Income'" :class="{'navigation__item--selected': currentItem === 'Income'}">
+                  <div class="navigation__item__container"><img class="navigation__item__icon" src="./images/icons/wallet-money.svg" alt="icon"/><span class="navigation__item__label">Income</span></div><img class="navigation__item__decor" src="./images/icons/chevron-right.svg" alt="chevron-right"/>
+                </li>
+                <li class="navigation__item" @click="currentItem = 'Promote'" :class="{'navigation__item--selected': currentItem === 'Promote'}">
+                  <div class="navigation__item__container"><img class="navigation__item__icon" src="./images/icons/discount-shape.svg" alt="icon"/><span class="navigation__item__label">Promote</span></div><img class="navigation__item__decor" src="./images/icons/chevron-right.svg" alt="chevron-right"/>
+                </li>
+                <li class="navigation__item" @click="currentItem = 'Help'" :class="{'navigation__item--selected': currentItem === 'Help'}">
+                  <div class="navigation__item__container"><img class="navigation__item__icon" src="./images/icons/message-question.svg" alt="icon"/><span class="navigation__item__label">Help</span></div><img class="navigation__item__decor" src="./images/icons/chevron-right.svg" alt="chevron-right"/>
+                </li>
+              </ul>
+            </nav>
+            <div class="card-user"><img class="card-user__avatar" src="./images/photos/users/evano/evano_x4.png" alt="avatar photo" srcset=""/>
+              <div>
+                <div class="card-user__name">Evano</div>
+                <div class="card-user__profession">Project Manager</div>
+              </div>
+            </div>
+          </div>
+          <div class="side-menu__button">
+            <button type="button" @click="isShow = !isShow" x-text="isShow ? '+' : '='"></button>
+          </div>
+        </div>
+        <div class="content">
+          <h1 class="content__title">Hello Evano 👋🏼,</h1>
+          <div class="smart-table" x-data="{search: ''}">
+            <div class="smart-table__header">
+              <div class="smart-table__header__container">
+                <div class="smart-table__header__title">All Customers</div>
+                <div class="smart-table__header__status">Active Members</div>
+              </div>
+              <div class="smart-table__header__search">
+                <label class="search"><img class="search__icon" src="./images/icons/search.svg" alt="search icon"/>
+                  <input class="search__input" type="search" name="search" placeholder="Search" x-model.debounce.500ms="search"/>
+                </label>
+              </div>
+            </div>
+            <div class="smart-table__body">
+              <table class="table" x-data="{'sortBy':'','sortType':0,'customers':[{'customerName':'Jane Cooper','company':'Microsoft','phoneNumber':'(225) 555-0118','email':'jane@microsoft.com','country':'United States','status':'Active'},{'customerName':'Floyd Miles','company':'Yahoo','phoneNumber':'(205) 555-0100','email':'floyd@yahoo.com','country':'Kiribati','status':'Inactive'},{'customerName':'Ronald Richards','company':'Adobe','phoneNumber':'(302) 555-0107','email':'ronald@adobe.com','country':'Israel','status':'Inactive'},{'customerName':'Marvin McKinney','company':'Tesla','phoneNumber':'(252) 555-0126','email':'marvin@tesla.com','country':'Iran','status':'Active'},{'customerName':'Kathryn Murphy','company':'Microsoft','phoneNumber':'(406) 555-0120','email':'kathrym@microsoft.com','country':'Curaçao','status':'Active'},{'customerName':'Jacob Jones','company':'Yahoo','phoneNumber':'(208) 555-0112','email':'jacob@yahoo.com','country':'Brazil','status':'Active'},{'customerName':'Kristin Watson','company':'Facebook','phoneNumber':'(704) 555-0127','email':'kristin@facebook.com','country':'Åland Islands','status':'Inactive'}],'filterList': function(query) {  return this.customers.filter(c =&gt; (  Object.values(c).some(value =&gt; value.toLowerCase().includes(query.toLowerCase()))  ));  } ,'sortList': function(key, customers) {  if (key === '') {  return customers;  }   return [...customers].sort((a, b) =&gt; {  if (this.sortType === 0) {  return 0;  }   if (this.sortType === 1) {  return a[key].localeCompare(b[key]);  }   return b[key].localeCompare(a[key]);  });  } ,'handleSortChange': function(key) {  this.sortBy = key;   if (this.sortType &gt;= 2) {  this.sortType = 0;  return;  }   this.sortType++;  } }">
+                <thead class="table__header">
+                  <tr class="table__header__list">
+                    <th class="table__header__padding"></th>
+                    <th class="table__header__item" @click="handleSortChange('customerName')">
+                      <div class="table__header__container" :class="{'table__header__container--desc': sortType === 1 &amp;&amp; sortBy === 'customerName','table__header__container--asc': sortType === 2 &amp;&amp; sortBy === 'customerName',}">Customer Name<img src="./images/icons/chevron-right.svg" alt="arrow"/></div>
+                    </th>
+                    <th class="table__header__item" @click="handleSortChange('company')">
+                      <div class="table__header__container" :class="{'table__header__container--desc': sortType === 1 &amp;&amp; sortBy === 'company','table__header__container--asc': sortType === 2 &amp;&amp; sortBy === 'company',}">Company<img src="./images/icons/chevron-right.svg" alt="arrow"/></div>
+                    </th>
+                    <th class="table__header__item" @click="handleSortChange('phoneNumber')">
+                      <div class="table__header__container" :class="{'table__header__container--desc': sortType === 1 &amp;&amp; sortBy === 'phoneNumber','table__header__container--asc': sortType === 2 &amp;&amp; sortBy === 'phoneNumber',}">Phone Number<img src="./images/icons/chevron-right.svg" alt="arrow"/></div>
+                    </th>
+                    <th class="table__header__item" @click="handleSortChange('email')">
+                      <div class="table__header__container" :class="{'table__header__container--desc': sortType === 1 &amp;&amp; sortBy === 'email','table__header__container--asc': sortType === 2 &amp;&amp; sortBy === 'email',}">Email<img src="./images/icons/chevron-right.svg" alt="arrow"/></div>
+                    </th>
+                    <th class="table__header__item" @click="handleSortChange('country')">
+                      <div class="table__header__container" :class="{'table__header__container--desc': sortType === 1 &amp;&amp; sortBy === 'country','table__header__container--asc': sortType === 2 &amp;&amp; sortBy === 'country',}">Country<img src="./images/icons/chevron-right.svg" alt="arrow"/></div>
+                    </th>
+                    <th class="table__header__item" @click="handleSortChange('status')">
+                      <div class="table__header__container" :class="{'table__header__container--desc': sortType === 1 &amp;&amp; sortBy === 'status','table__header__container--asc': sortType === 2 &amp;&amp; sortBy === 'status',}">Status<img src="./images/icons/chevron-right.svg" alt="arrow"/></div>
+                    </th>
+                    <th class="table__header__padding"></th>
+                  </tr>
+                </thead>
+                <tbody class="table__body">
+                  <template x-for="(customer, index) in sortList(sortBy,filterList(search.trim()))" :key="index">
+                    <tr class="table__body__list">
+                      <td></td>
+                      <td class="table__body__item" x-text="customer.customerName"></td>
+                      <td class="table__body__item" x-text="customer.company"></td>
+                      <td class="table__body__item" x-text="customer.phoneNumber"></td>
+                      <td class="table__body__item" x-text="customer.email"></td>
+                      <td class="table__body__item" x-text="customer.country"></td>
+                      <td class="table__body__item">
+                        <div class="status" :class="customer.status === 'Active' ? 'status--active' : 'status--inactive'" x-text="customer.status"></div>
+                      </td>
+                      <td></td>
+                    </tr>
+                  </template>
+                </tbody>
+              </table>
+            </div>
+            <div class="smart-table__footer">
+              <div class="smart-table__footer__info">Showing data 1 to 8 of  256K entries</div>
+              <div class="pagination" x-data="">
+                <div class="pagination__item prev">&lt;</div>
+                <div class="pagination__list">
+                  <div class="pagination__item pagination__item--selected">1</div>
+                  <div class="pagination__item">2</div>
+                  <div class="pagination__item">3</div>
+                  <div class="pagination__item">4</div>
+                  <div class="pagination__item pagination__item--none">...</div>
+                  <div class="pagination__item">40</div>
+                </div>
+                <div class="pagination__item next">&gt;</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <footer class="page__footer"></footer>
+    </div>
+  </body>
+</html>

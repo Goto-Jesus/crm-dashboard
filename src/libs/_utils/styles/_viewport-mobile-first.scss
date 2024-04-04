@@ -1,0 +1,31 @@
+@use "./breakpoints" as _;
+
+@mixin onDesktop {
+  @media (min-width: map-get(_.$breakpoints, xxl)) {
+    @content;
+  }
+}
+
+@mixin onLabtop {
+  @media (min-width: map-get(_.$breakpoints, xl)) {
+    @content;
+  }
+}
+
+@mixin onTablet {
+  @media (min-width: map-get(_.$breakpoints, lg)) {
+    @content;
+  }
+}
+
+@mixin onPhablet {
+  @media (min-width: map-get(_.$breakpoints, md)) {
+    @content;
+  }
+}
+
+@mixin onPhone {
+  @media (min-width: map-get(_.$breakpoints, sm)) {
+    @content;
+  }
+}

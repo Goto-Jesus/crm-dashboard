@@ -1,0 +1,9 @@
+mixin side-menu
+  .side-menu(x-data="{isShow: true}" :class="{'side-menu--close': !isShow}")
+    .side-menu__header
+      +logo
+    .side-menu__container
+      +navigation
+      +card-user
+    .side-menu__button
+      button(type="button" @click="isShow = !isShow" x-text="isShow ? '+' : '='")

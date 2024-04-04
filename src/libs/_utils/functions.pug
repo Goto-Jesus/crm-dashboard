@@ -1,0 +1,7 @@
+-
+  var to=(d)=>JSON.stringify(d,(k,v)=>typeof v==="function"?`<№>${v}<№>`:v,0)
+    .replace(/"<№>|<№>"|\s\s+|\\n/g," ")
+    .replace(/'/g,"❜")
+    .replace(/"|\\"/g,"'");
+
+  var st=(func,delay=0)=>`setTimeout(() => {${func}}, ${delay})`;

@@ -1,0 +1,31 @@
+.search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: max-content;
+  width: 100%;
+  cursor: text;
+
+  background-color: #f9fbff;
+  border-radius: 10px;
+  padding: 8px;
+
+  &__icon {
+    @include size(24px);
+    object-fit: cover;
+  }
+
+  &__input {
+    display: block;
+    width: 100%;
+    font-weight: 400;
+    font-size: 12px;
+    outline: none;
+    background-color: transparent;
+    border-radius: 4px;
+
+    &::placeholder {
+      color: #b5b7c0;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+._flex {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+
+  @include onDesktop {
+    gap: 14px;
+  }
+
+  &-col {
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}

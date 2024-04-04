@@ -1,0 +1,57 @@
+.pagination {
+  display: flex;
+  gap: 12px;
+
+  -webkit-user-select: none;
+  user-select: none;
+
+  &__list {
+    display: flex;
+    gap: 12px;
+  }
+
+  &__item {
+    @include size(24px);
+    @include flex-center;
+    text-align: center;
+
+    cursor: pointer;
+
+    border: 1px solid #eee;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 12px;
+
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: 0 2px 4px -2px gray;
+    }
+
+    &:active {
+      transform: scale(1);
+    }
+
+    &--selected {
+      background-color: var(--active);
+      border: 1px solid var(--active);
+      color: var(--white);
+    }
+
+    &--none {
+      background-color: transparent;
+      border: 1px solid transparent;
+      pointer-events: none;
+    }
+
+    @include onTablet {
+      &:hover,
+      &:active {
+        transform: none;
+        box-shadow: none;
+      }
+    }
+  }
+}

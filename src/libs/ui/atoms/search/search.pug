@@ -1,0 +1,4 @@
+mixin search()
+  label.search
+    img.search__icon(src="./images/icons/search.svg" alt="search icon")
+    input.search__input(type="search" name="search" placeholder="Search" x-model.debounce.500ms="search") 

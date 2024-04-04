@@ -1,0 +1,11 @@
+mixin pagination()
+  .pagination(x-data="")
+    .pagination__item.prev &lt;
+    .pagination__list
+      .pagination__item.pagination__item--selected 1
+      .pagination__item 2
+      .pagination__item 3
+      .pagination__item 4
+      .pagination__item.pagination__item--none ...
+      .pagination__item 40
+    .pagination__item.next &gt;

@@ -1,0 +1,17 @@
+.page {
+  /* Colors */
+  --white: #fff;
+  --active: #5932ea;
+  --active-alpha: #5b34ea80;
+  --text: #000;
+  --bg: #e2ecf980;
+
+  /* Fonts */
+  --font-family: "Poppins", sans-serif;
+
+  /* Options */
+  --transition-time: 0.3s;
+}
+
+.page--theme--dark {
+}

@@ -1,0 +1,19 @@
+-
+  var _props = {
+    number: 0,
+    boolean: false,
+    string: "",
+    array: [],
+  };
+
+mixin block-name(props=_props)
+  - const {boolean} = props;
+
+  .block-name&attributes(attributes)
+    if (boolean)
+      p.block-name__item!= true
+
+//-
+  +block-name({
+    boolean: true,
+  })

@@ -1,0 +1,16 @@
+mixin smart-table()
+  .smart-table(x-data="{search: ''}")
+    .smart-table__header
+      .smart-table__header__container
+        .smart-table__header__title All Customers
+        .smart-table__header__status Active Members
+
+      .smart-table__header__search
+        +search
+    .smart-table__body
+      +table
+
+    .smart-table__footer
+      .smart-table__footer__info Showing data 1 to 8 of  256K entries
+      +pagination
+

@@ -1,0 +1,45 @@
+@mixin hover($_property, $_toValue) {
+  transition: #{$_property} 0.3s;
+
+  &:hover {
+    #{$_property}: $_toValue;
+  }
+}
+
+@mixin shadow {
+  box-shadow: 0 10px 60px 0 #e2ecf980;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin size($_size) {
+  width: #{$_size};
+  height: #{$_size};
+}
+
+@mixin no-event {
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+// Effects
+@mixin addMaskCircle($-circle-size, $-dirrection: "right") {
+  @if $-dirrection == "right" {
+    clip-path: circle(
+      var($-circle-size) at calc((var($-circle-size) - 100%) * -1) 50%
+    );
+  } @else if $-dirrection == "left" {
+    clip-path: circle(var($-circle-size) at var($-circle-size) 50%);
+  } @else if $-dirrection == "top" {
+    clip-path: circle(var($-circle-size) at 50% var($-circle-size));
+  } @else if $-dirrection == "botton" {
+    clip-path: circle(
+      var($-circle-size) at 50% calc((var($-circle-size) - 100%) * -1)
+    );
+  }
+}

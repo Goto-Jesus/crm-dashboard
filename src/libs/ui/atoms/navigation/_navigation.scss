@@ -1,0 +1,97 @@
+.navigation {
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    perspective: 10cm;
+  }
+
+  &__item {
+    $origin: &;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 8px;
+    padding: 11px;
+    background-color: var(--white);
+
+    -webkit-user-select: none;
+    user-select: none;
+
+    transition: filter var(--transition-time),
+      background-color var(--transition-time);
+    transition-timing-function: ease;
+
+    cursor: pointer;
+
+    &:hover {
+      filter: drop-shadow(0 0 4px var(--active));
+    }
+
+    @include onTablet {
+      &:hover {
+        filter: none;
+      }
+    }
+
+    &__container {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    &__icon {
+      @include size(24px);
+      object-fit: cover;
+    }
+
+    &__label {
+      font-size: 14px;
+      line-height: 20px;
+      color: #9197b3;
+    }
+
+    &--selected {
+      background-color: var(--active);
+
+      animation-name: seleted-animation;
+      animation-duration: 0.6s;
+      animation-timing-function: ease;
+
+      #{$origin}__icon,
+      #{$origin}__decor {
+        filter: brightness(100);
+      }
+
+      #{$origin}__label {
+        color: var(--white);
+      }
+    }
+  }
+
+  @keyframes seleted-animation {
+    50% {
+      filter: sepia(100%);
+    }
+
+    55% {
+      filter: none;
+    }
+
+    100% {
+      transform: rotate3d(1, 0, 0, 360deg);
+    }
+  }
+
+  &__link {
+    display: inline-block;
+    text-decoration: none;
+
+    &:link,
+    &:visited {
+    }
+
+    &:hover {
+    }
+  }
+}
